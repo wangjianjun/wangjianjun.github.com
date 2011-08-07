@@ -117,7 +117,7 @@
     <a href="#styles">Object-Oriented and Functional Styles</a> 
  
     <p> 
-      <b>Collections</b> 
+      <b>Collections(已完成翻译)</b> 
       <br /> 
       <span class="methods"><a href="#each">each</a>, <a href="#map">map</a>,
       <a href="#reduce">reduce</a>, <a href="#reduceRight">reduceRight</a>,
@@ -182,9 +182,7 @@
       <h2 id="styles">Object-Oriented and Functional Styles</h2> 
  
       <p> 
-        You can use Underscore in either an object-oriented or a functional style,
-        depending on your preference. The following two lines of code are
-        identical ways to double a list of numbers.
+	  根据个人编程习惯，可以选用对象方式或函数方式使用Underscore。下面两行代码殊途同归，都是加倍一组数字。
       </p> 
  
     <pre> 
@@ -192,12 +190,7 @@ _.map([1, 2, 3], function(n){ return n * 2; });
 _([1, 2, 3]).map(function(n){ return n * 2; });</pre> 
  
       <p> 
-        Using the object-oriented style allows you to chain together methods. Calling
-        <tt>chain</tt> on a wrapped object will cause all future method calls to
-        return wrapped objects as well. When you've finished the computation,
-        use <tt>value</tt> to retrieve the final value. Here's an example of chaining
-        together a <b>map/flatten/reduce</b>, in order to get the word count of
-        every word in a song.
+	  Underscore的面向对象风格支持链式编程。在一个包装对象上调用<tt>chain</tt>，会让后续方法的调用也都返回包装对象。当计算结束是，用<tt>value</tt>方法得到最后的计算结果。下面的例子链式使用<b>map/flatten/reduce</b>，目的是得到每个单词在歌词中的数量。
       </p> 
  
 <pre> 
@@ -219,25 +212,16 @@ _(lyrics).chain()
 =&gt; {lumberjack : 2, all : 4, night : 2 ... }</pre> 
  
       <p> 
-        In addition, the
-        <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/prototype">Array prototype's methods</a> 
-        are proxied through the chained Underscore object, so you can slip a
-        <tt>reverse</tt> or a <tt>push</tt> into your chain, and continue to
-        modify the array.
+	  此外，Underscore对象代理<a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/prototype">Array原型的方法</a>，所以也能够在链式中使用数组的<tt>reverse</tt>、<tt>push</tt>方法修改数组。
       </p> 
  
       <h2>Collection Functions (Arrays or Objects)</h2> 
  
       <p id="each"> 
         <b class="header">each</b><code>_.each(list, iterator, [context])</code> 
-        <span class="alias">Alias: <b>forEach</b></span> 
+        <span class="alias">别名: <b>forEach</b></span> 
         <br /> 
-        Iterates over a <b>list</b> of elements, yielding each in turn to an <b>iterator</b> 
-        function. The <b>iterator</b> is bound to the <b>context</b> object, if one is
-        passed. Each invocation of <b>iterator</b> is called with three arguments:
-        <tt>(element, index, list)</tt>. If <b>list</b> is a JavaScript object, <b>iterator</b>'s
-        arguments will be <tt>(value, key, list)</tt>. Delegates to the native
-        <b>forEach</b> function if it exists.
+		迭代<b>list</b>中的所有元素，按顺序用迭代器输出每个元素。如果传递了<b>context</b>参数，则把<b>iterator</b>绑定到<b>context</b>对象上。每次调用<b>iterator</b>都会传递三个参数：<tt>(element, index, list)</tt>。如果list是个JavaScript对象，<b>iterator</b>的参数是 <tt>(value, key, list)</tt>)。存在原生的<b>forEach</b>方法，Underscore就委托给<b>forEach</b>。
       </p> 
       <pre> 
 _.each([1, 2, 3], function(num){ alert(num); });
@@ -247,11 +231,8 @@ _.each({one : 1, two : 2, three : 3}, function(num, key){ alert(num); });
  
       <p id="map"> 
         <b class="header">map</b><code>_.map(list, iterator, [context])</code> 
-        <br /> 
-        Produces a new array of values by mapping each value in <b>list</b> 
-        through a transformation function (<b>iterator</b>). If the native <b>map</b> method
-        exists, it will be used instead. If <b>list</b> is a JavaScript object,
-        <b>iterator</b>'s arguments will be <tt>(value, key, list)</tt>.
+        <br />
+		用转换函数把<b>list</b>中的每个值映射到一个新的数组。存在原生的<b>map</b>方法，就用原生<b>map</b>方法代替。如果list是个JavaScript对象，<b>iterator</b>的参数是<tt>(value, key, list)</tt>。
       </p> 
       <pre> 
 _.map([1, 2, 3], function(num){ return num * 3; });
@@ -263,10 +244,7 @@ _.map({one : 1, two : 2, three : 3}, function(num, key){ return num * 3; });
         <b class="header">reduce</b><code>_.reduce(list, iterator, memo, [context])</code> 
         <span class="alias">Aliases: <b>inject, foldl</b></span> 
         <br /> 
-        Also known as <b>inject</b> and <b>foldl</b>, <b>reduce</b> boils down a
-        <b>list</b> of values into a single value. <b>Memo</b> is the initial state
-        of the reduction, and each successive step of it should be returned by
-        <b>iterator</b>.
+		<b>reduce</b>方法把列表中元素归结为一个简单的数值，reduce的别名为inject and foldl。<b>Memo</b>是reduce函数的初始值，reduce的每一步都需要由<b>iterator</b>返回。
       </p> 
       <pre> 
 var sum = _.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0);
@@ -277,10 +255,7 @@ var sum = _.reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0);
         <b class="header">reduceRight</b><code>_.reduceRight(list, iterator, memo, [context])</code> 
         <span class="alias">Alias: <b>foldr</b></span> 
         <br /> 
-        The right-associative version of <b>reduce</b>. Delegates to the
-        JavaScript 1.8 version of <b>reduceRight</b>, if it exists. <b>Foldr</b> 
-        is not as useful in JavaScript as it would be in a language with lazy
-        evaluation.
+		<b>reducRight</b>是从右侧开始组合的元素的<b>reduce</b>函数，如果存在JavaScript 1.8版本的<b>reduceRight</b>，则用其代替。<b>Foldr</b>在javascript中不像其它有懒计算的语言那么有用（lazy evaluation：一种求值策略，只有当表达式的值真正需要时才对表达式进行计算）。
       </p> 
       <pre> 
 var list = [[0, 1], [2, 3], [4, 5]];
@@ -291,10 +266,7 @@ var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []);
       <p id="detect"> 
         <b class="header">detect</b><code>_.detect(list, iterator, [context])</code> 
         <br /> 
-        Looks through each value in the <b>list</b>, returning the first one that
-        passes a truth test (<b>iterator</b>). The function returns as
-        soon as it finds an acceptable element, and doesn't traverse the
-        entire list.
+		遍历<b>list</b>，返回第一个通过<b>iterator</b>真值检测的元素值。如果找到匹配的元素立即返回，不会遍历整个list。
       </p> 
       <pre> 
 var even = _.detect([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
@@ -305,9 +277,7 @@ var even = _.detect([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
         <b class="header">select</b><code>_.select(list, iterator, [context])</code> 
         <span class="alias">Alias: <b>filter</b></span> 
         <br /> 
-        Looks through each value in the <b>list</b>, returning an array of all
-        the values that pass a truth test (<b>iterator</b>). Delegates to the
-        native <b>filter</b> method, if it exists.
+		遍历<b>list</b>，返回包含所有通过<b>iterator</b>真值检测的元素值。如果存在原生<b>filter</b>方法，则委托给<b>filter</b>。
       </p> 
       <pre> 
 var evens = _.select([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
@@ -317,8 +287,7 @@ var evens = _.select([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
       <p id="reject"> 
         <b class="header">reject</b><code>_.reject(list, iterator, [context])</code> 
         <br /> 
-        Returns the values in <b>list</b> without the elements that the truth
-        test (<b>iterator</b>) passes. The opposite of <b>select</b>.
+		返回那么没有通过<b>iterator</b>真值检测的元素数组，<b>select</b>的相反函数。
       </p> 
       <pre> 
 var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
@@ -329,8 +298,7 @@ var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
         <b class="header">all</b><code>_.all(list, iterator, [context])</code> 
         <span class="alias">Alias: <b>every</b></span> 
         <br /> 
-        Returns <i>true</i> if all of the values in the <b>list</b> pass the <b>iterator</b> 
-        truth test. Delegates to the native method <b>every</b>, if present.
+		如果<b>list</b>中的所有元素都通过iterator的真值检测就返回<i>true</i>。如果存在原生的<b>every</b>方法，则委托给<b>every</b>。
       </p> 
       <pre> 
 _.all([true, 1, null, 'yes'], _.identity);
@@ -341,10 +309,7 @@ _.all([true, 1, null, 'yes'], _.identity);
         <b class="header">any</b><code>_.any(list, [iterator], [context])</code> 
         <span class="alias">Alias: <b>some</b></span> 
         <br /> 
-        Returns <i>true</i> if any of the values in the <b>list</b> pass the
-        <b>iterator</b> truth test. Short-circuits and stops traversing the list
-        if a true element is found. Delegates to the native method <b>some</b>,
-        if present.
+		如果有任何一个元素通过通过 <b>iterator</b> 的真值检测就返回<i>true</i>。如果存在原生的<b>some</b>方法，则委托给<b>some</b>
       </p> 
       <pre> 
 _.any([null, 0, 'yes', false]);
@@ -355,9 +320,7 @@ _.any([null, 0, 'yes', false]);
         <b class="header">include</b><code>_.include(list, value)</code> 
         <span class="alias">Alias: <b>contains</b></span> 
         <br /> 
-        Returns <i>true</i> if the <b>value</b> is present in the <b>list</b>, using
-        <i>===</i> to test equality. Uses <b>indexOf</b> internally, if <b>list</b> 
-        is an Array.
+		如果<b>list</b>包含指定的<b>value</b>则返回<i>true</i>，使用===检测是否相等。如果<b>list</b> 是数组，内部使用<b>indexOf</b>判断。
       </p> 
       <pre> 
 _.include([1, 2, 3], 3);
@@ -367,9 +330,7 @@ _.include([1, 2, 3], 3);
       <p id="invoke"> 
         <b class="header">invoke</b><code>_.invoke(list, methodName, [*arguments])</code> 
         <br /> 
-        Calls the method named by <b>methodName</b> on each value in the <b>list</b>.
-        Any extra arguments passed to <b>invoke</b> will be forwarded on to the
-        method invocation.
+		在list的每个元素上执行<b>methodName</b>方法。任何传递给<b>invoke</b>的额外参数，invoke都会在调用methodName方法的时候传递给它。
       </p> 
       <pre> 
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
@@ -379,8 +340,7 @@ _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
       <p id="pluck"> 
         <b class="header">pluck</b><code>_.pluck(list, propertyName)</code> 
         <br /> 
-        A convenient version of what is perhaps the most common use-case for
-        <b>map</b>: extracting a list of property values.
+		<b>pluck</b>是<b>map</b>最常使用的用例模型的版本，即萃取对象数组中某属性值，返回一个数组
       </p> 
       <pre> 
 var stooges = [{name : 'moe', age : 40}, {name : 'larry', age : 50}, {name : 'curly', age : 60}];
@@ -391,9 +351,7 @@ _.pluck(stooges, 'name');
       <p id="max"> 
         <b class="header">max</b><code>_.max(list, [iterator], [context])</code> 
         <br /> 
-        Returns the maximum value in <b>list</b>. If <b>iterator</b> is passed,
-        it will be used on each value to generate the criterion by which the
-        value is ranked.
+		返回<b>list</b>中的最大值。如果传递<b>iterator</b>参数，<b>iterator</b>将作为list排序的依据。
       </p> 
       <pre> 
 var stooges = [{name : 'moe', age : 40}, {name : 'larry', age : 50}, {name : 'curly', age : 60}];
@@ -404,9 +362,7 @@ _.max(stooges, function(stooge){ return stooge.age; });
       <p id="min"> 
         <b class="header">min</b><code>_.min(list, [iterator], [context])</code> 
         <br /> 
-        Returns the minimum value in <b>list</b>. If <b>iterator</b> is passed,
-        it will be used on each value to generate the criterion by which the
-        value is ranked.
+       返回<b>list</b>中的最小值。如果传递<b>iterator</b>参数，<b>iterator</b>将作为list排序的依据。
       </p> 
       <pre> 
 var numbers = [10, 5, 100, 2, 1000];
@@ -417,8 +373,7 @@ _.min(numbers);
       <p id="sortBy"> 
         <b class="header">sortBy</b><code>_.sortBy(list, iterator, [context])</code> 
         <br /> 
-        Returns a sorted copy of <b>list</b>, ranked by the results of running 
-        each value through <b>iterator</b>.
+		返回一个排序后的<b>list</b>。如果有<b>iterator</b>参数，<b>iterator</b>将作为list排序的依据。
       </p> 
       <pre> 
 _.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); });
@@ -428,8 +383,7 @@ _.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); });
       <p id="groupBy"> 
         <b class="header">groupBy</b><code>_.groupBy(list, iterator)</code> 
         <br /> 
-        Splits a collection into sets, grouped by the result of running each
-        value through <b>iterator</b>.
+		把一个集合分组为多个集合，<b>iterator</b>为分组条件的迭代器
       </p> 
       <pre> 
 _.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); });
@@ -438,7 +392,9 @@ _.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); });
  
       <p id="sortedIndex"> 
         <b class="header">sortedIndex</b><code>_.sortedIndex(list, value, [iterator])</code> 
-        <br /> 
+        <br />
+		使用二分查找确定<b>value</b>在<b>list</b>中的位置序号，<b>value</b>按此序号插入能保持<b>list</b>原有的排序。如果传递<b>iterator</b>参数，<b>iterator</b>将作为list排序的依据
+
         Uses a binary search to determine the index at which the <b>value</b> 
         <i>should</i> be inserted into the <b>list</b> in order to maintain the <b>list</b>'s
         sorted order. If an <b>iterator</b> is passed, it will be used to compute
@@ -452,8 +408,7 @@ _.sortedIndex([10, 20, 30, 40, 50], 35);
       <p id="toArray"> 
         <b class="header">toArray</b><code>_.toArray(list)</code> 
         <br /> 
-        Converts the <b>list</b> (anything that can be iterated over), into a
-        real Array. Useful for transmuting the <b>arguments</b> object.
+		把<b>list</b>(任何可以迭代的对象)转换成一个Array，有助于<b>arguments</b>对象的转换。
       </p> 
       <pre> 
 (function(){ return _.toArray(arguments).slice(0); })(1, 2, 3);
@@ -463,7 +418,7 @@ _.sortedIndex([10, 20, 30, 40, 50], 35);
       <p id="size"> 
         <b class="header">size</b><code>_.size(list)</code> 
         <br /> 
-        Return the number of values in the <b>list</b>.
+        返回<b>list</b>的长度。
       </p> 
       <pre> 
 _.size({one : 1, two : 2, three : 3});
